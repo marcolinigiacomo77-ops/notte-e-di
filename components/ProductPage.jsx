@@ -4,10 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Layout from './Layout';
 import { useCart } from '../context/CartContext';
+import { slugify } from '../data/products';
 
-export default function ProductPage({ title, sectionTitle, activePage, products, showBreadcrumb = false }) {
+export default function ProductPage({ sectionTitle, activePage, products, showBreadcrumb = false }) {
   const { addToCart } = useCart();
   const [feedback, setFeedback] = useState(false);
+  const base = activePage.replace('-', '/');
 
   const handleAdd = (name, price) => {
     addToCart(name, price);
@@ -25,8 +27,6 @@ export default function ProductPage({ title, sectionTitle, activePage, products,
 
   return (
     <>
-
-      {/* Notifica aggiunta carrello */}
       {feedback && (
         <div style={{
           position: 'fixed', top: '100px', right: '20px',
@@ -41,12 +41,14 @@ export default function ProductPage({ title, sectionTitle, activePage, products,
       <Layout activePage={activePage} breadcrumb={breadcrumb}>
         <h2 className="section-title">{sectionTitle}</h2>
         <div className="product-grid">
-          {products.map((p, i) => (
-            <div key={i} className="product-card">
-              <div className="product-image">{p.image}</div>
-              <h3 className="product-name">{p.name}</h3>
-              <p className="product-desc">{p.desc}</p>
-              <p className="product-price">{p.price}€</p>
+          {products.map((p) => (
+            <div key={p.name} className="product-card">
+              <Link href={`/${base}/${slugify(p.name)}`} className="product-link">
+                <div className="product-image">{p.image}</div>
+                <h3 className="product-name">{p.name}</h3>
+                <p className="product-desc">{p.desc}</p>
+                <p className="product-price">{p.price}€</p>
+              </Link>
               <button
                 onClick={() => handleAdd(p.name, p.price)}
                 style={{
@@ -57,7 +59,7 @@ export default function ProductPage({ title, sectionTitle, activePage, products,
                   transition: 'all 0.3s ease',
                 }}
                 onMouseOver={(e) => (e.target.style.background = 'var(--hover-pink)')}
-                onMouseOut={(e)  => (e.target.style.background = 'var(--primary-pink)')}
+                onMouseOut={(e) => (e.target.style.background = 'var(--primary-pink)')}
               >
                 🛒 Aggiungi
               </button>

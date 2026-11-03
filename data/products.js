@@ -69,3 +69,23 @@ export const INTIMO_UOMO = [
   { name: 'Boxer Seta Premium Nera',     desc: 'Seta 21mm, esclusivo',            price: 95,  image: 'Immagine' },
   { name: 'Set Premium Seta Blu Luxury', desc: 'Seta pregiata, sofisticatezza',   price: 140, image: 'Immagine' },
 ];
+
+// Catalogo per sezione: usato dalle pagine di dettaglio prodotto
+export const SECTIONS = {
+  'pigiami/donna': { title: 'PIGIAMI DONNA', products: PIGIAMI_DONNA },
+  'pigiami/uomo': { title: 'PIGIAMI UOMO', products: PIGIAMI_UOMO },
+  'costumi/donna': { title: 'COSTUMI DONNA', products: COSTUMI_DONNA },
+  'costumi/uomo': { title: 'COSTUMI UOMO', products: COSTUMI_UOMO },
+  'intimo/donna': { title: 'INTIMO DONNA', products: INTIMO_DONNA },
+  'intimo/uomo': { title: 'INTIMO UOMO', products: INTIMO_UOMO },
+};
+
+// Trasforma un nome in uno slug per l'URL: "Pigiama Lino Blu" -> "pigiama-lino-blu"
+export function slugify(name) {
+  return name
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}

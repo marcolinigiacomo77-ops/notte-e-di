@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const FACEBOOK_URL = 'https://www.facebook.com/NotteedÌ-Macerata-Notte-e-DÌ-intimo-100063919485863/';
+const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61552806719169';
 const WHATSAPP_URL = 'https://wa.me/3483136509?text=Ciao%20Notte%26Di%20vorrei%20informazioni';
 
 export default function SocialSticky() {
