@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Sidebar from './Sidebar';
 import SocialSticky from './SocialSticky';
-import { useCart } from '../context/CartContext';
+import CartButton from './CartButton';
 
 export default function Layout({
   children,
@@ -15,8 +15,6 @@ export default function Layout({
   extraSection  = null,
   footer        = null,
 }) {
-  const { cart } = useCart();
-
   return (
     <>
       <header>
@@ -28,10 +26,7 @@ export default function Layout({
               </h1>
             </div>
             <div className="header-right">
-              <Link href="/carrello" className="cart-header-btn">
-                CARRELLO{' '}
-                <span className="cart-count-badge">{cart.length}</span>
-              </Link>
+              <CartButton />
             </div>
           </>
         ) : (

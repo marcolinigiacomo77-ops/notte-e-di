@@ -6,6 +6,7 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
+  const [addCount, setAddCount] = useState(0);
 
   // Carica dal localStorage solo lato client
   useEffect(() => {
@@ -21,6 +22,7 @@ export function CartProvider({ children }) {
     const newItem = { id: Date.now(), name, price: parseFloat(price) };
     const newCart = [...cart, newItem];
     setCart(newCart);
+    setAddCount((c) => c + 1);
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
@@ -36,7 +38,7 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addCount, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

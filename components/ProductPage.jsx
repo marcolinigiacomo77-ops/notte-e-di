@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Layout from './Layout';
 import { useCart } from '../context/CartContext';
 import { slugify } from '../data/products';
+import Reveal from './Reveal';
 
 export default function ProductPage({ sectionTitle, activePage, products, showBreadcrumb = false }) {
   const { addToCart } = useCart();
@@ -28,7 +29,7 @@ export default function ProductPage({ sectionTitle, activePage, products, showBr
   return (
     <>
       {feedback && (
-        <div style={{
+        <div className="cart-toast" style={{
           position: 'fixed', top: '100px', right: '20px',
           background: 'var(--primary-pink)', color: 'white',
           padding: '12px 20px', borderRadius: '4px',
@@ -39,10 +40,10 @@ export default function ProductPage({ sectionTitle, activePage, products, showBr
       )}
 
       <Layout activePage={activePage} breadcrumb={breadcrumb}>
-        <h2 className="section-title">{sectionTitle}</h2>
+        <Reveal as="h2" className="section-title">{sectionTitle}</Reveal>
         <div className="product-grid">
-          {products.map((p) => (
-            <div key={p.name} className="product-card">
+          {products.map((p, i) => (
+            <Reveal key={p.name} className="product-card" delay={(i % 3) * 110}>
               <Link href={`/${base}/${slugify(p.name)}`} className="product-link">
                 <div className="product-image">{p.image}</div>
                 <h3 className="product-name">{p.name}</h3>
@@ -63,7 +64,7 @@ export default function ProductPage({ sectionTitle, activePage, products, showBr
               >
                 🛒 Aggiungi
               </button>
-            </div>
+            </Reveal>
           ))}
         </div>
       </Layout>

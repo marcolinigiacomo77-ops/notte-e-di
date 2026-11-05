@@ -20,8 +20,8 @@ export default function Home() {
       <h2 className="welcome-title">BENVENUTI IN NOTTE&amp;DÌ</h2>
 
       <div className="collections-grid">
-        {COLLECTIONS.map((c) => (
-          <div className="collection-box" key={c.base}>
+        {COLLECTIONS.map((c, i) => (
+          <div className="collection-box" key={c.base} style={{ '--i': i }}>
             <Link href={`/${c.base}/donna`} className="main-btn">
               {c.label}
             </Link>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Layout from './Layout';
 import { useCart } from '../context/CartContext';
+import Reveal from './Reveal';
 
 export default function ProductDetail({ product, sectionTitle, activePage, basePath }) {
   const { addToCart } = useCart();
@@ -28,7 +29,7 @@ export default function ProductDetail({ product, sectionTitle, activePage, baseP
   return (
     <>
       {feedback && (
-        <div style={{
+        <div className="cart-toast" style={{
           position: 'fixed', top: '100px', right: '20px',
           background: 'var(--primary-pink)', color: 'white',
           padding: '12px 20px', borderRadius: '4px',
@@ -40,8 +41,8 @@ export default function ProductDetail({ product, sectionTitle, activePage, baseP
 
       <Layout activePage={activePage} breadcrumb={breadcrumb}>
         <div className="product-detail">
-          <div className="product-detail-image">{product.image}</div>
-          <div className="product-detail-info">
+          <Reveal className="product-detail-image">{product.image}</Reveal>
+          <Reveal className="product-detail-info" delay={150}>
             <h2 className="section-title">{product.name}</h2>
             <p className="product-detail-desc">{product.long || product.desc}</p>
             <p className="product-price">{product.price}€</p>
@@ -59,7 +60,7 @@ export default function ProductDetail({ product, sectionTitle, activePage, baseP
             <p style={{ marginTop: '24px' }}>
               <Link href={`/${basePath}`}>← Torna a {sectionTitle.toLowerCase()}</Link>
             </p>
-          </div>
+          </Reveal>
         </div>
       </Layout>
     </>
